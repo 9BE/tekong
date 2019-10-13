@@ -34,12 +34,27 @@
 		<link>
 			<name>core/core</name>
 			<type>2</type>
-			<location>/home/suhaimi/Arduino/hardware/espressif/esp32/cores/esp32</location>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/cores/esp32</location>
 		</link>
 		<link>
 			<name>core/variant</name>
 			<type>2</type>
-			<location>/home/suhaimi/Arduino/hardware/espressif/esp32/variants/esp32</location>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/variants/esp32</location>
+		</link>
+		<link>
+			<name>libraries/FS</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/FS</location>
+		</link>
+		<link>
+			<name>libraries/FreeRTOS</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/FreeRTOS/10.2.0-1</locationURI>
+		</link>
+		<link>
+			<name>libraries/SPIFFS</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/SPIFFS</location>
 		</link>
 	</linkedResources>
 </projectDescription>
