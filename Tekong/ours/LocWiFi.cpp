@@ -25,7 +25,6 @@ LocWiFi::LocWiFi(int core, int loopDelay, int *lookVal) {
 	wifiMulti->APlistClean();
 
 	xTaskCreatePinnedToCore(aaa->loop, "loopLocWiFi", 3072, NULL, 1, &loopLocWiFi, core);
-
 }
 
 void LocWiFi::_openConnection(int as) {

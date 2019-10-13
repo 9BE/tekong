@@ -57,8 +57,6 @@ void LocSpiff::readFile(const char* path) {
         while(file.available()){
         	Serial.write(file.read());
 //        	Serial.print(file.readStringUntil('\n'));
-
-
         }
         file.close();
         SPIFFS.end();
