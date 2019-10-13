@@ -1,12 +1,21 @@
 #include "Arduino.h"
 #include <LocSpiff.h>
+#include <LocWiFi.h>
 
 
-LocSpiff *locSpiff;
+
+
+FileInfo_t ssid;
+
+LocSpiff 	*locSpiff;
+LocWiFi		*locWiFi;
+
+int xval = 0;
 
 void setupSSID();
 
 
+//===============================================================================
 void setup()
 {
 	Serial.begin(912600, SERIAL_8N1, 3, 1);
@@ -16,22 +25,26 @@ void setup()
 	locSpiff = new LocSpiff;
 	setupSSID();
 
+	locWiFi = new LocWiFi(0,3000, &xval);
+
 
 
 }
 
+//===============================================================================
 void loop()
 {
 	delay(1000);
 	log_i("Salam dunia");
+	xval ++;
 
 
 }
 
-
+//===============================================================================
 inline void setupSSID() {
-	FileInfo_t fi = locSpiff->getInfo("/ssid.txt");
-	if(fi.filename == "/ssid.txt"){
+	ssid = locSpiff->getInfo("/ssid.txt");
+	if(ssid.filename == "/ssid.txt"){
 		log_i("Exist");
 	}
 	else{
