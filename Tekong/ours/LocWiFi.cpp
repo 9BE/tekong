@@ -31,7 +31,6 @@ void LocWiFi::_openConnection(int as) {
 	log_i("LocWiFi::_readSsid");
 	LocSpiff *ls;
 	bool staFlag=false;
-	bool apFlag=false;
 
 	ls = new LocSpiff;
 	_sList.clear();
@@ -52,8 +51,6 @@ void LocWiFi::_openConnection(int as) {
 				staFlag = true;
 			}
 			if( ((data.at(0) == "apsta") || (data.at(0) == "ap")) && (as != lw_wifi_sta) ){
-
-				apFlag = true;
 				log_i("AP ...");
 				WiFi.softAP(data.at(1).c_str(), data.at(2).c_str());
 				log_i("IP=%s", WiFi.softAPIP().toString().c_str());

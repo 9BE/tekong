@@ -26,7 +26,7 @@ void setup()
 	setupSSID();
 
 	locWiFi = new LocWiFi(0,3000, &xValWiFi);
-	xValWiFi = lw_wifi_apsta;
+	xValWiFi = lw_wifi_is_off;
 //	xValWiFi = lw_wifi_ap;
 
 
