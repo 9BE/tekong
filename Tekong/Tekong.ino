@@ -2,18 +2,11 @@
 #include <LocSpiff.h>
 #include <LocWiFi.h>
 
-
-
-
-FileInfo_t ssid;
-
-LocSpiff 	*locSpiff;
+FileInfo_t 	ssid;
 LocWiFi		*locWiFi;
-
 int xValWiFi = 0;
 
 void setupSSID();
-
 
 //===============================================================================
 void setup()
@@ -22,29 +15,26 @@ void setup()
 	delay(1000);
 	log_i("\n\n\n\nSalam Dunia dari %s\n\n\n\n", __FILE__);
 
-	locSpiff = new LocSpiff;
+
 	setupSSID();
 
 	locWiFi = new LocWiFi(0,3000, &xValWiFi);
-	xValWiFi = lw_wifi_is_off;
-//	xValWiFi = lw_wifi_ap;
-
-
+	xValWiFi = lw_wifi_sta;
 }
 
 //===============================================================================
 void loop()
 {
 	delay(1000);
-//	log_i("Salam dunia");
-//	xValWiFi ++;
-//	xValWiFi = lw_wifi_apsta;
 
 
 }
 
 //===============================================================================
 inline void setupSSID() {
+	LocSpiff 	*locSpiff;
+
+	locSpiff = new LocSpiff;
 	ssid = locSpiff->getInfo("/ssid.txt");
 	if(ssid.filename == "/ssid.txt"){
 		log_i("Exist");
@@ -56,16 +46,8 @@ inline void setupSSID() {
 		locSpiff->appendFile("/ssid.txt", "sta,GF_Wifi_2.4GHz,Gr33nF1nd3r2018\n");
 		locSpiff->appendFile("/ssid.txt", "ap,NiNe,AsamBoiqqq\n");
 	}
+	delete locSpiff;
 }
 
 
-//	locSpiff->listAllFiles();
-//	locSpiff->listDir("/", 3);
-//	log_i("name = %s", fi.filename.c_str());
-//	log_i("Size = %d", fi.size);
-//
-//
-//	fi = locSpiff->getInfo("/logo.jpg");
-//	log_i("Logo = %s", fi.filename.c_str());
-//	log_i("Size = %d", fi.size);
 

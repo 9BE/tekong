@@ -12,14 +12,12 @@
 
 LocWiFi	*aaa;
 TaskHandle_t loopLocWiFi= NULL;
-int 	_loopDelay;
-int * 	_lookVal;
 WiFiMulti 	*wifiMulti;
 
 LocWiFi::LocWiFi(int core, int loopDelay, int *lookVal) {
 	aaa = this;
-	_loopDelay = loopDelay;
-	_lookVal = lookVal;
+	aaa->_loopDelay = loopDelay;
+	aaa->_lookVal = lookVal;
 
 	wifiMulti = new WiFiMulti;
 	wifiMulti->APlistClean();
@@ -69,7 +67,7 @@ void LocWiFi::loop(void* parameter) {
 
 
 	while(true){
-		switch (*_lookVal) {
+		switch (*aaa->_lookVal) {
 			case lw_wifi_ap:
 				aaa->_openConnection(lw_wifi_ap);
 				break;
@@ -87,11 +85,8 @@ void LocWiFi::loop(void* parameter) {
 				break;
 		}
 
-		*_lookVal = 0;
-
-
-
-		delay(_loopDelay);
+		*aaa->_lookVal = 0;
+		delay(aaa->_loopDelay);
 	}
 }
 

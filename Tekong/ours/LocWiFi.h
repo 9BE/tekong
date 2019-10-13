@@ -28,6 +28,8 @@ class LocWiFi {
 private:
 	void _openConnection(int as);
 	std::vector<std::vector<String>> _sList;
+	int 	_loopDelay;
+	int * 	_lookVal;
 public:
 	LocWiFi(int core, int loopDelay, int *lookVal);
 	virtual ~LocWiFi();
