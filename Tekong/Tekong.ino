@@ -10,7 +10,7 @@ FileInfo_t ssid;
 LocSpiff 	*locSpiff;
 LocWiFi		*locWiFi;
 
-int xval = 0;
+int xValWiFi = 0;
 
 void setupSSID();
 
@@ -25,8 +25,9 @@ void setup()
 	locSpiff = new LocSpiff;
 	setupSSID();
 
-	locWiFi = new LocWiFi(0,3000, &xval);
-
+	locWiFi = new LocWiFi(0,3000, &xValWiFi);
+	xValWiFi = lw_wifi_apsta;
+//	xValWiFi = lw_wifi_ap;
 
 
 }
@@ -35,8 +36,9 @@ void setup()
 void loop()
 {
 	delay(1000);
-	log_i("Salam dunia");
-	xval ++;
+//	log_i("Salam dunia");
+//	xValWiFi ++;
+//	xValWiFi = lw_wifi_apsta;
 
 
 }

@@ -42,6 +42,11 @@
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/variants/esp32</location>
 		</link>
 		<link>
+			<name>libraries/ESPmDNS</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/ESPmDNS</location>
+		</link>
+		<link>
 			<name>libraries/FS</name>
 			<type>2</type>
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/FS</location>
@@ -55,6 +60,11 @@
 			<name>libraries/SPIFFS</name>
 			<type>2</type>
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/SPIFFS</location>
+		</link>
+		<link>
+			<name>libraries/WiFi</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/WiFi</location>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -112,12 +112,6 @@ std::vector<std::vector<String>> LocSpiff::readCSV(const char* path) {
 
         	cols = split(ss, ",");
         	rows.push_back(cols);
-
-//        	for(int i=0; i < cols.size(); i++){
-//
-//        		Serial.println(cols.at(i));
-//
-//        	}
         }
         file.close();
         SPIFFS.end();
