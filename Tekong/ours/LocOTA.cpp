@@ -37,7 +37,8 @@ void LocOTA::loop(void* parameter) {
 				payload = iniOTA->_http.getString();
 			}
 			else{
-				payload = "yyy?";
+				payload = "zzz";
+
 			}
 
 			iniOTA->_http.end();
