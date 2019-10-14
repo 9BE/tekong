@@ -26,17 +26,23 @@ LocOTA::LocOTA(int core, int loopDelay, char *site) {
 
 
 void LocOTA::loop(void* parameter) {
+	String payload = "";
 
 	while(true){
 		if((WiFi.getMode() == WIFI_MODE_STA) || (WiFi.getMode() == WIFI_MODE_APSTA)){
 			log_i("WiFi Mode = %d, site=%s", WiFi.getMode(), iniOTA->_site);
 			iniOTA->_http.begin("http://nine-server.000webhostapp.com/");
 			int httpCode = iniOTA->_http.GET();
-			log_i("Http Code = %d", httpCode);
-
-
+			if(httpCode ==  200){
+				payload = iniOTA->_http.getString();
+			}
+			else{
+				payload = "xxx";
+			}
 
 			iniOTA->_http.end();
+
+			Serial.print(payload);
 		}
 		else{
 			log_w("NO OTA");
