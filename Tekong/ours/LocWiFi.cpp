@@ -10,19 +10,19 @@
 #include <WiFiMulti.h>
 #include <ESPmDNS.h>
 
-LocWiFi	*aaa;
+LocWiFi	*iniWiFi;
 TaskHandle_t loopLocWiFi= NULL;
 WiFiMulti 	*wifiMulti;
 
 LocWiFi::LocWiFi(int core, int loopDelay, int *lookVal) {
-	aaa = this;
-	aaa->_loopDelay = loopDelay;
-	aaa->_lookVal = lookVal;
+	iniWiFi = this;
+	iniWiFi->_loopDelay = loopDelay;
+	iniWiFi->_lookVal = lookVal;
 
 	wifiMulti = new WiFiMulti;
 	wifiMulti->APlistClean();
 
-	xTaskCreatePinnedToCore(aaa->loop, "loopLocWiFi", 3072, NULL, 1, &loopLocWiFi, core);
+	xTaskCreatePinnedToCore(iniWiFi->loop, "loopLocWiFi", 3072, NULL, 1, &loopLocWiFi, core);
 }
 
 void LocWiFi::_openConnection(int as) {
@@ -60,6 +60,8 @@ void LocWiFi::_openConnection(int as) {
 			log_i("... End SSID=%s IP=%s", WiFi.SSID().c_str(), WiFi.localIP().toString().c_str());
 		}
 	}
+
+	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
 }
 
 void LocWiFi::loop(void* parameter) {
@@ -67,15 +69,15 @@ void LocWiFi::loop(void* parameter) {
 
 
 	while(true){
-		switch (*aaa->_lookVal) {
+		switch (*iniWiFi->_lookVal) {
 			case lw_wifi_ap:
-				aaa->_openConnection(lw_wifi_ap);
+				iniWiFi->_openConnection(lw_wifi_ap);
 				break;
 			case lw_wifi_sta:
-				aaa->_openConnection(lw_wifi_sta);
+				iniWiFi->_openConnection(lw_wifi_sta);
 				break;
 			case lw_wifi_apsta:
-				aaa->_openConnection(lw_wifi_apsta);
+				iniWiFi->_openConnection(lw_wifi_apsta);
 
 				break;
 			case lw_wifi_off:
@@ -85,8 +87,8 @@ void LocWiFi::loop(void* parameter) {
 				break;
 		}
 
-		*aaa->_lookVal = 0;
-		delay(aaa->_loopDelay);
+		*iniWiFi->_lookVal = 0;
+		delay(iniWiFi->_loopDelay);
 	}
 }
 

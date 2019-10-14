@@ -1,9 +1,11 @@
 #include "Arduino.h"
 #include <LocSpiff.h>
 #include <LocWiFi.h>
+#include <LocOTA.h>
 
 FileInfo_t 	ssid;
 LocWiFi		*locWiFi;
+LocOTA		*locOTA;
 int xValWiFi = 0;
 
 void setupSSID();
@@ -15,11 +17,18 @@ void setup()
 	delay(1000);
 	log_i("\n\n\n\nSalam Dunia dari %s\n\n\n\n", __FILE__);
 
+	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
+
+
+	locOTA = new LocOTA(0, 30000, "tekong.bin");
 
 	setupSSID();
 
 	locWiFi = new LocWiFi(0,3000, &xValWiFi);
-	xValWiFi = lw_wifi_sta;
+	xValWiFi = lw_wifi_apsta;
+	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
+
+
 }
 
 //===============================================================================

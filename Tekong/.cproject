@@ -27,6 +27,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/SPIFFS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/ESPmDNS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/HTTPClient/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/WiFiClientSecure/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.811364856" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -40,6 +42,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/SPIFFS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/ESPmDNS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/HTTPClient/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/WiFiClientSecure/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.1912746076" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -53,6 +57,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/SPIFFS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/ESPmDNS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/HTTPClient/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/WiFiClientSecure/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.355368324" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
