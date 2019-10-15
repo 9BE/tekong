@@ -11,12 +11,16 @@
 #include "Arduino.h"
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <LocSpiff.h>
+
+#include	"ESP32httpUpdate.h"
 
 class LocOTA {
 private:
 	int 	_loopDelay;
 	char	*_site;
 	HTTPClient _http;
+	String _latestFileTimeStamp = "";
 public:
 	LocOTA(int core, int loopDelay, char *site);
 	static void loop(void * parameter);

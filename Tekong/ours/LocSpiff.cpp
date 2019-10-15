@@ -45,25 +45,7 @@ void LocSpiff::listAllFiles() {
 
 }
 
-void LocSpiff::readFile(const char* path) {
-    if(SPIFFS.begin(true)){
-        File file = SPIFFS.open(path);
-        if(!file || file.isDirectory()){
-            log_e("- failed to open file for reading");
-            return;
-        }
 
-        log_i("- read from file:");
-        while(file.available()){
-        	Serial.write(file.read());
-//        	Serial.print(file.readStringUntil('\n'));
-        }
-        file.close();
-        SPIFFS.end();
-    }
-
-
-}
 
 bool isDelim(const char& query, const String& delimList){
     for(int i = 0; i < delimList.length(); i++)
@@ -101,6 +83,7 @@ std::vector<std::vector<String>> LocSpiff::readCSV(const char* path) {
         if(!file || file.isDirectory()){
             log_e("- failed to open file for reading");
             file.close();
+            SPIFFS.end();
             return rows;
         }
 
@@ -119,30 +102,9 @@ std::vector<std::vector<String>> LocSpiff::readCSV(const char* path) {
 
 }
 
-void LocSpiff::appendFile(const char* path, const char* message) {
-    if(SPIFFS.begin(true)){
-        File file = SPIFFS.open(path, FILE_APPEND);
-        if(!file){
-        	log_e("- failed to open file for appending");
-        	file.close();
-            return;
-        }
-
-        file.print(message);
-
-//        if(file.print(message)){
-//        	il.setMsg("- message appended");
-//        } else {
-//        	il.setMsg("- append failed");
-//        }
-        file.close();
-        SPIFFS.end();
-    }
 
 
 
-
-}
 
 void LocSpiff::renameFile(const char* path1, const char* path2) {
     if(SPIFFS.begin(true)){
@@ -158,28 +120,67 @@ void LocSpiff::renameFile(const char* path1, const char* path2) {
 
 }
 
+void LocSpiff::appendFile(const char* path, const char* message) {
+    if(SPIFFS.begin(true)){
+        File file = SPIFFS.open(path, FILE_APPEND);
+        if(!file){
+        	log_e("- failed to open file for appending");
+        	file.close();
+        	SPIFFS.end();
+            return;
+        }
+
+        file.print(message);
+        file.close();
+        SPIFFS.end();
+    }
+}
+
 void LocSpiff::writeFile(const char* path, const char* message) {
     if(SPIFFS.begin(true)){
+
+    	log_i("Path = %s", path);
 
         File file = SPIFFS.open(path, FILE_WRITE);
         if(!file){
         	log_e("- failed to open file for writing");
         	file.close();
+        	SPIFFS.end();
             return;
         }
+
+        log_i("Kat sini %s", message);
+
         if(file.print(message)){
         	log_i("- file written");
         } else {
         	log_e("- write failed");
         }
-
-
         file.close();
-
         SPIFFS.end();
     }
 }
 
+String LocSpiff::readFile(const char* path) {
+	String res = "";
+    if(SPIFFS.begin(true)){
+        File file = SPIFFS.open(path, FILE_READ);
+        if(!file || file.isDirectory()){
+            log_e("- failed to open file for reading");
+            file.close();
+            SPIFFS.end();
+            return res;
+        }
+
+        log_i("- read from file:");
+        while(file.available()){
+        	res += file.readString();
+        }
+        file.close();
+        SPIFFS.end();
+    }
+    return res;
+}
 void LocSpiff::listDir(const char* dirname, uint8_t levels) {
 
 

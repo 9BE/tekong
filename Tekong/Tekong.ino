@@ -2,6 +2,7 @@
 #include <LocSpiff.h>
 #include <LocWiFi.h>
 #include <LocOTA.h>
+#include <Update.h>
 
 FileInfo_t 	ssid;
 LocWiFi		*locWiFi;
@@ -22,7 +23,35 @@ void setup()
 	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
 
 
-	locOTA = new LocOTA(0, 30000, "tekong.bin");
+	String xxx;
+
+	LocSpiff 	*locSpiff;
+
+	locSpiff = new LocSpiff;
+
+	String ttt = "salam dunia";
+
+	locSpiff->writeFile("/katun.sss", ttt.c_str());
+
+	locSpiff->listAllFiles();
+	xxx = locSpiff->readFile("/ssid.txt");
+	log_i("data dalam file = %s", xxx.c_str());
+
+	xxx = locSpiff->readFile("/katun.sss");
+	log_i("data dalam file = %s", xxx.c_str());
+
+
+	delete locSpiff;
+
+
+
+//	while(true){
+//		delay(2000);
+//	}
+
+
+
+	locOTA = new LocOTA(0, 30000, "Tekong.bin");
 
 	setupSSID();
 
@@ -36,22 +65,34 @@ void setup()
 //===============================================================================
 void loop()
 {
+
 	delay(1000);
+
+
+	if(Update.isRunning()){
+		Serial.print(Update.progress());
+		Serial.print(" @ ");
+		Serial.println(Update.size());
+
+	}
 
 
 }
 
 //===============================================================================
 inline void setupSSID() {
+	//aza
 	LocSpiff 	*locSpiff;
 
 	locSpiff = new LocSpiff;
+
 	ssid = locSpiff->getInfo("/ssid.txt");
 	if(ssid.filename == "/ssid.txt"){
 		log_i("Exist");
 	}
 	else{
 		log_i("Not Exist - Creating default credentials");
+		locSpiff->deleteFile("/ssid.txt");
 		locSpiff->appendFile("/ssid.txt", "sta,ideapad,sawabatik1\n");
 		locSpiff->appendFile("/ssid.txt", "sta,AndroidAP,sawabatik\n");
 		locSpiff->appendFile("/ssid.txt", "sta,GF_Wifi_2.4GHz,Gr33nF1nd3r2018\n");

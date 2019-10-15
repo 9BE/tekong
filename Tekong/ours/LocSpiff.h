@@ -26,7 +26,7 @@ public:
 	void listAllFiles();
 	void listDir(const char * dirname, uint8_t levels);
 
-	void readFile(const char * path);
+	String readFile(const char * path);
 	std::vector<std::vector<String>> readCSV(const char * path);
 
 	void writeFile(const char * path, const char * message);
