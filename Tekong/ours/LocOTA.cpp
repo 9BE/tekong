@@ -77,12 +77,7 @@ void LocOTA::loop(void* parameter) {
 				}
 			}
 			else{
-<<<<<<< HEAD
-				payload = "error";
-=======
 				payload = "zzz";
-
->>>>>>> branch 'master' of https://github.com/9BE/tekong.git
 			}
 
 			iniOTA->_http.end();

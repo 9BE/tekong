@@ -23,25 +23,25 @@ void setup()
 	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
 
 
-	String xxx;
-
-	LocSpiff 	*locSpiff;
-
-	locSpiff = new LocSpiff;
-
-	String ttt = "salam dunia";
-
-	locSpiff->writeFile("/katun.sss", ttt.c_str());
-
-	locSpiff->listAllFiles();
-	xxx = locSpiff->readFile("/ssid.txt");
-	log_i("data dalam file = %s", xxx.c_str());
-
-	xxx = locSpiff->readFile("/katun.sss");
-	log_i("data dalam file = %s", xxx.c_str());
-
-
-	delete locSpiff;
+//	String xxx;
+//
+//	LocSpiff 	*locSpiff;
+//
+//	locSpiff = new LocSpiff;
+//
+//	String ttt = "salam dunia";
+//
+//	locSpiff->writeFile("/katun.sss", ttt.c_str());
+//
+//	locSpiff->listAllFiles();
+//	xxx = locSpiff->readFile("/ssid.txt");
+//	log_i("data dalam file = %s", xxx.c_str());
+//
+//	xxx = locSpiff->readFile("/katun.sss");
+//	log_i("data dalam file = %s", xxx.c_str());
+//
+//
+//	delete locSpiff;
 
 
 
