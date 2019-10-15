@@ -5,8 +5,10 @@
  *      Author: annuar
  */
 
-#include <LocOTA.h>
+#include 	<LocOTA.h>
 #include	"ESP32httpUpdate.h"
+#include 	"SPIFFS.h"
+#include 	"FS.h"
 
 //#include	"HTTPClient.h"
 
@@ -44,6 +46,7 @@ void LocOTA::loop(void* parameter) {
 	while(true){
 		if((WiFi.getMode() == WIFI_MODE_STA) || (WiFi.getMode() == WIFI_MODE_APSTA)){
 			log_i("WiFi Mode = %d, site=%s", WiFi.getMode(), iniOTA->_site);
+			esp_task_wdt_reset();
 			iniOTA->_http.begin("http://nine-server.000webhostapp.com/nbe/masa.php?file=" + String(iniOTA->_site));
 			int httpCode = iniOTA->_http.GET();
 			if(httpCode ==  200){
@@ -68,11 +71,19 @@ void LocOTA::loop(void* parameter) {
 						delay(1000);
 //						LocSpiff *ddd;
 //						ddd = new LocSpiff;
-						locSpiff->writeFile("/timestamp.txt", payload.c_str());
+						bool wrt=false;
+
+						while(wrt == false){
+							wrt = locSpiff->writeFile("/timestamp.txt", payload.c_str());
+							delay(10);
+						}
+
+
 //						free(ddd);
 						log_i("=====================DONE=============================== %s", payload.c_str());
 						delay(2000);
 						ESP.restart();
+
 					}
 				}
 			}

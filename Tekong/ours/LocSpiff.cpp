@@ -136,29 +136,40 @@ void LocSpiff::appendFile(const char* path, const char* message) {
     }
 }
 
-void LocSpiff::writeFile(const char* path, const char* message) {
+bool LocSpiff::writeFile(const char* path, const char* message) {
+	bool res= false;
     if(SPIFFS.begin(true)){
 
     	log_i("Path = %s", path);
 
-        File file = SPIFFS.open(path, FILE_WRITE);
+        File file;
+
+        file.clearWriteError();
+        file  = SPIFFS.open(path, FILE_WRITE);
+
+
         if(!file){
         	log_e("- failed to open file for writing");
         	file.close();
         	SPIFFS.end();
-            return;
+            return res;
         }
 
         log_i("Kat sini %s", message);
 
         if(file.print(message)){
         	log_i("- file written");
+        	res = true;
         } else {
         	log_e("- write failed");
         }
         file.close();
         SPIFFS.end();
+
+
     }
+
+    return res;
 }
 
 String LocSpiff::readFile(const char* path) {

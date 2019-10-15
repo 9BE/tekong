@@ -13,6 +13,8 @@
 #include "FS.h"
 
 
+
+
 typedef struct {
 	String	filename;
 	time_t	lastWrite;
@@ -29,7 +31,7 @@ public:
 	String readFile(const char * path);
 	std::vector<std::vector<String>> readCSV(const char * path);
 
-	void writeFile(const char * path, const char * message);
+	bool writeFile(const char * path, const char * message);
 	void appendFile(const char * path, const char * message);
 	void renameFile(const char * path1, const char * path2);
 	void deleteFile(const char * path);
