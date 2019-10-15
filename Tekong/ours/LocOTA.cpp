@@ -77,7 +77,7 @@ void LocOTA::loop(void* parameter) {
 				}
 			}
 			else{
-				payload = "zzz";
+				payload = "error";
 			}
 
 			iniOTA->_http.end();
@@ -85,7 +85,7 @@ void LocOTA::loop(void* parameter) {
 //			Serial.print(payload);
 		}
 		else{
-			log_w("NO OTA");
+			log_w("NO OTA - No WiFi connection");
 		}
 		esp_task_wdt_reset();
 		delay(iniOTA->_loopDelay);
