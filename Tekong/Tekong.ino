@@ -30,8 +30,6 @@ void setup()
 	locOTA = new LocOTA(0, 30000, binFile);
 	delay(1000);
 
-//	setupSSID();
-
 	locWiFi = new LocWiFi(0,3000, &xValWiFi);
 	xValWiFi = lw_wifi_apsta;
 }
@@ -77,24 +75,4 @@ inline void setupSSID() {
 
 
 
-
-//	String xxx;
-//
-//	LocSpiff 	*locSpiff;
-//
-//	locSpiff = new LocSpiff;
-//
-//	String ttt = "salam dunia";
-//
-//	locSpiff->writeFile("/katun.sss", ttt.c_str());
-//
-//	locSpiff->listAllFiles();
-//	xxx = locSpiff->readFile("/ssid.txt");
-//	log_i("data dalam file = %s", xxx.c_str());
-//
-//	xxx = locSpiff->readFile("/katun.sss");
-//	log_i("data dalam file = %s", xxx.c_str());
-//
-//
-//	delete locSpiff;
 
