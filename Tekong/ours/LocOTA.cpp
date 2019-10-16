@@ -20,6 +20,9 @@ TaskHandle_t loopLocOTA= NULL;
 LocOTA::LocOTA(int core, int loopDelay, String site) {
 	//aza
 	iniOTA = this;
+
+
+	// loopDelay digunakan untuk check server
 	iniOTA->_loopDelay = loopDelay;
 	iniOTA->_site = site;
 
@@ -41,6 +44,10 @@ void LocOTA::loop(void* parameter) {
 	//aza
 	String payload = "";
 	LocSpiff *locSpiff;
+	int scan = 0;
+	bool scanEn = false;
+
+	int httpCode;
 
 	locSpiff = new LocSpiff;
 	iniOTA->_latestFileTimeStamp = locSpiff->readFile("/timestamp.txt");
@@ -49,66 +56,78 @@ void LocOTA::loop(void* parameter) {
 	iniOTA->_latestFileTimeStamp.trim();
 
 	log_i("Timestamp = %s", iniOTA->_latestFileTimeStamp.c_str());
+	esp_task_wdt_reset();
 
 	while(true){
-		if((WiFi.getMode() == WIFI_MODE_STA) || (WiFi.getMode() == WIFI_MODE_APSTA)){
-			log_i("WiFi Mode = %d, site=%s", WiFi.getMode(), iniOTA->_site.c_str());
-			esp_task_wdt_reset();
+
+		if(scanEn){
+			if((WiFi.getMode() == WIFI_MODE_STA) || (WiFi.getMode() == WIFI_MODE_APSTA)){
+
+				log_i("WiFi Mode = %d, site=%s", WiFi.getMode(), iniOTA->_site.c_str());
+				esp_task_wdt_reset();
 
 
-			iniOTA->_http.begin("http://nine-server.000webhostapp.com/nbe/masa.php?file=" + iniOTA->_site);
-			int httpCode = iniOTA->_http.GET();
-			if(httpCode ==  200){
-				payload = iniOTA->_http.getString();
-				payload.trim();
-				iniOTA->_http.end();
+				iniOTA->_http.begin("http://nine-server.000webhostapp.com/nbe/masa.php?file=" + iniOTA->_site);
+				httpCode = iniOTA->_http.GET();
+				esp_task_wdt_reset();
 
-				if(payload.equals(iniOTA->_latestFileTimeStamp)){
-					log_i("SAMA");
-				}
-				else{
-					log_i("TAK SAMA");
+				if(httpCode ==  200){
+					scanEn = false;
+					scan = 0;
+					payload = iniOTA->_http.getString();
+					payload.trim();
+					iniOTA->_http.end();
 
-					esp_task_wdt_reset();
-					ESPhttpUpdate.rebootOnUpdate(false);
-					t_httpUpdate_return ret = ESPhttpUpdate.update("http://nine-server.000webhostapp.com/nbe/" + iniOTA->_site);
+					if(payload.equals(iniOTA->_latestFileTimeStamp)){
+						log_i("SAMA");
+					}
+					else{
+						log_i("TAK SAMA");
 
-//					Serial.print("return = ");
-//					Serial.println(ret);
-					if(ret == HTTP_UPDATE_OK){
-						iniOTA->_http.end();
 						esp_task_wdt_reset();
-						delay(1000);
-//						LocSpiff *ddd;
-//						ddd = new LocSpiff;
-						bool wrt=false;
+						ESPhttpUpdate.rebootOnUpdate(false);
+						t_httpUpdate_return ret = ESPhttpUpdate.update("http://nine-server.000webhostapp.com/nbe/" + iniOTA->_site);
 
-						while(wrt == false){
-							wrt = locSpiff->writeFile("/timestamp.txt", payload.c_str());
-							delay(10);
+	//					Serial.print("return = ");
+	//					Serial.println(ret);
+						if(ret == HTTP_UPDATE_OK){
+							iniOTA->_http.end();
+							esp_task_wdt_reset();
+							delay(1000);
+	//						LocSpiff *ddd;
+	//						ddd = new LocSpiff;
+							bool wrt=false;
+
+							while(wrt == false){
+								wrt = locSpiff->writeFile("/timestamp.txt", payload.c_str());
+								delay(10);
+							}
+							log_i("=====================DONE=============================== %s", payload.c_str());
+							delay(2000);
+							ESP.restart();
+
 						}
-
-
-//						free(ddd);
-						log_i("=====================DONE=============================== %s", payload.c_str());
-						delay(2000);
-						ESP.restart();
-
 					}
 				}
+				else{
+					log_i("Connection error? %d", httpCode);
+					payload = "error";
+				}
+				iniOTA->_http.end();
 			}
 			else{
-				payload = "error";
+				log_w("NO OTA - No WiFi connection");
 			}
-
-			iniOTA->_http.end();
-
-//			Serial.print(payload);
 		}
-		else{
-			log_w("NO OTA - No WiFi connection");
-		}
+
 		esp_task_wdt_reset();
-		delay(iniOTA->_loopDelay);
+
+
+		delay(1000);
+		scan += 1000;
+		if(scan > iniOTA->_loopDelay){
+			scan = 0;
+			scanEn = true;
+		}
 	}
 }

@@ -18,15 +18,12 @@ void setup()
 	Serial.begin(912600, SERIAL_8N1, 3, 1);
 	delay(1000);
 	log_i("\n\n\n\nSalam Dunia dari %s\n\n\n\n", __FILE__);
+	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
 
 	binFile = __FILE__;
 	binFile = binFile.substring(3, binFile.length());
 	binFile = binFile.substring(0, binFile.length()-3);
 	binFile += "bin";
-
-	log_i("BinFile = %s", binFile.c_str());
-
-	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
 
 	locOTA = new LocOTA(0, 30000, binFile);
 

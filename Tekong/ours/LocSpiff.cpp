@@ -145,6 +145,7 @@ bool LocSpiff::writeFile(const char* path, const char* message) {
         File file;
 
         file.clearWriteError();
+        log_i("SINI");
         file  = SPIFFS.open(path, FILE_WRITE);
 
 
@@ -168,6 +169,8 @@ bool LocSpiff::writeFile(const char* path, const char* message) {
 
 
     }
+
+    SPIFFS.end();
 
     return res;
 }
