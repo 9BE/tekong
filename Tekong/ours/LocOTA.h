@@ -21,7 +21,6 @@ private:
 	String 	_site;
 	HTTPClient _http;
 	String _latestFileTimeStamp = "";
-	String _url;
 public:
 	LocOTA(int core, int loopDelay, String site);
 	static void loop(void * parameter);

@@ -26,14 +26,8 @@ LocOTA::LocOTA(int core, int loopDelay, String site) {
 	iniOTA->_loopDelay = loopDelay;
 	iniOTA->_site = site;
 
-	Serial.println(iniOTA->_site);
-	log_i("Apakah %s", iniOTA->_site.c_str());
-
-	iniOTA->_url = "http://nine-server.000webhostapp.com/nbe/masa.php?file=";
-	iniOTA->_url += iniOTA->_site;
-	log_i("Jadi %s", iniOTA->_url.c_str());
-
-
+//	Serial.println(iniOTA->_site);
+//	log_i("Apakah %s", iniOTA->_site.c_str());
 
 	xTaskCreatePinnedToCore(iniOTA->loop, "loopLocOTA", 3072, NULL, 1, &loopLocOTA, core);
 
