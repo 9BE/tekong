@@ -43,9 +43,16 @@ void LocOTA::loop(void* parameter) {
 
 	int httpCode;
 
-	locSpiff = new LocSpiff;
-	iniOTA->_latestFileTimeStamp = locSpiff->readFile("/timestamp.txt");
-//	free(locSpiff);
+	locSpiff = new LocSpiff("LocOTA::loop");
+
+	while(true){
+		iniOTA->_latestFileTimeStamp = locSpiff->readFile("/timestamp.txt");
+		if(iniOTA->_latestFileTimeStamp.length() > 5){
+			break;
+		}
+	}
+
+	delete locSpiff;
 
 	iniOTA->_latestFileTimeStamp.trim();
 
@@ -87,16 +94,23 @@ void LocOTA::loop(void* parameter) {
 						if(ret == HTTP_UPDATE_OK){
 							iniOTA->_http.end();
 							esp_task_wdt_reset();
+
+
 							delay(1000);
-	//						LocSpiff *ddd;
-	//						ddd = new LocSpiff;
+							LocSpiff *ddd;
+							ddd = new LocSpiff("HTTP_UPDATE_OK");
 							bool wrt=false;
 
+							ddd->deleteFile("/timestamp.txt");
+
 							while(wrt == false){
-								wrt = locSpiff->writeFile("/timestamp.txt", payload.c_str());
+								wrt = ddd->writeFile("/timestamp.txt", payload.c_str());
 								delay(10);
 							}
 							log_i("=====================DONE=============================== %s", payload.c_str());
+
+							ddd->listAllFiles();
+							delete ddd;
 							delay(2000);
 							ESP.restart();
 

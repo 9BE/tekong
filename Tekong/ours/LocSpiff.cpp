@@ -11,14 +11,18 @@
 #include <vector>
 #include <string>
 
+LocSpiff *iniSpiff;
 
+LocSpiff::LocSpiff(String created) {
+	iniSpiff = this;
 
-LocSpiff::LocSpiff() {
+	iniSpiff->_mana = created;
 
-
+	log_i("LocSpiff ---------------------------- bina @ %s", iniSpiff->_mana.c_str());
 }
 
 LocSpiff::~LocSpiff() {
+	log_i("LocSpiff ---------------------------- musnah @ %s", iniSpiff->_mana.c_str());
 
 }
 
@@ -168,6 +172,9 @@ bool LocSpiff::writeFile(const char* path, const char* message) {
         SPIFFS.end();
 
 
+    }
+    else{
+    	log_i("~~~~~~spiff begin fail");
     }
 
     SPIFFS.end();

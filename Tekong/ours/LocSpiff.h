@@ -22,8 +22,10 @@ typedef struct {
 } FileInfo_t;
 
 class LocSpiff {
+private:
+	String _mana;
 public:
-	LocSpiff();
+	LocSpiff(String created);
 	virtual ~LocSpiff();
 	void listAllFiles();
 	void listDir(const char * dirname, uint8_t levels);

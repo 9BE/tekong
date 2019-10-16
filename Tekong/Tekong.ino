@@ -25,9 +25,12 @@ void setup()
 	binFile = binFile.substring(0, binFile.length()-3);
 	binFile += "bin";
 
-	locOTA = new LocOTA(0, 30000, binFile);
-
 	setupSSID();
+
+	locOTA = new LocOTA(0, 30000, binFile);
+	delay(1000);
+
+//	setupSSID();
 
 	locWiFi = new LocWiFi(0,3000, &xValWiFi);
 	xValWiFi = lw_wifi_apsta;
@@ -55,7 +58,7 @@ inline void setupSSID() {
 	//aza
 	LocSpiff 	*locSpiff;
 
-	locSpiff = new LocSpiff;
+	locSpiff = new LocSpiff("setupSSID");
 
 	ssid = locSpiff->getInfo("/ssid.txt");
 	if(ssid.filename == "/ssid.txt"){

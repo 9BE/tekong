@@ -30,7 +30,7 @@ void LocWiFi::_openConnection(int as) {
 	LocSpiff *ls;
 	bool staFlag=false;
 
-	ls = new LocSpiff;
+	ls = new LocSpiff("LocWiFi::_openConnection");
 	_sList.clear();
 	_sList = ls->readCSV("/ssid.txt");
 	delete ls;
