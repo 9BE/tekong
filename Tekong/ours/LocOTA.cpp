@@ -17,11 +17,20 @@ TaskHandle_t loopLocOTA= NULL;
 
 
 
-LocOTA::LocOTA(int core, int loopDelay, char *site) {
+LocOTA::LocOTA(int core, int loopDelay, String site) {
 	//aza
 	iniOTA = this;
 	iniOTA->_loopDelay = loopDelay;
 	iniOTA->_site = site;
+
+	Serial.println(iniOTA->_site);
+	log_i("Apakah %s", iniOTA->_site.c_str());
+
+	iniOTA->_url = "http://nine-server.000webhostapp.com/nbe/masa.php?file=";
+	iniOTA->_url += iniOTA->_site;
+	log_i("Jadi %s", iniOTA->_url.c_str());
+
+
 
 	xTaskCreatePinnedToCore(iniOTA->loop, "loopLocOTA", 3072, NULL, 1, &loopLocOTA, core);
 
@@ -37,17 +46,17 @@ void LocOTA::loop(void* parameter) {
 	iniOTA->_latestFileTimeStamp = locSpiff->readFile("/timestamp.txt");
 //	free(locSpiff);
 
-
-//	iniOTA->_latestFileTimeStamp = "1571039415";
 	iniOTA->_latestFileTimeStamp.trim();
 
 	log_i("Timestamp = %s", iniOTA->_latestFileTimeStamp.c_str());
 
 	while(true){
 		if((WiFi.getMode() == WIFI_MODE_STA) || (WiFi.getMode() == WIFI_MODE_APSTA)){
-			log_i("WiFi Mode = %d, site=%s", WiFi.getMode(), iniOTA->_site);
+			log_i("WiFi Mode = %d, site=%s", WiFi.getMode(), iniOTA->_site.c_str());
 			esp_task_wdt_reset();
-			iniOTA->_http.begin("http://nine-server.000webhostapp.com/nbe/masa.php?file=" + String(iniOTA->_site));
+
+
+			iniOTA->_http.begin("http://nine-server.000webhostapp.com/nbe/masa.php?file=" + iniOTA->_site);
 			int httpCode = iniOTA->_http.GET();
 			if(httpCode ==  200){
 				payload = iniOTA->_http.getString();
@@ -62,12 +71,13 @@ void LocOTA::loop(void* parameter) {
 
 					esp_task_wdt_reset();
 					ESPhttpUpdate.rebootOnUpdate(false);
-					t_httpUpdate_return ret = ESPhttpUpdate.update("http://nine-server.000webhostapp.com/nbe/" + String(iniOTA->_site));
+					t_httpUpdate_return ret = ESPhttpUpdate.update("http://nine-server.000webhostapp.com/nbe/" + iniOTA->_site);
 
 //					Serial.print("return = ");
 //					Serial.println(ret);
 					if(ret == HTTP_UPDATE_OK){
 						iniOTA->_http.end();
+						esp_task_wdt_reset();
 						delay(1000);
 //						LocSpiff *ddd;
 //						ddd = new LocSpiff;

@@ -11,55 +11,29 @@ int xValWiFi = 0;
 
 void setupSSID();
 
-// hoho
-
 //===============================================================================
 void setup()
 {
+	String binFile;
 	Serial.begin(912600, SERIAL_8N1, 3, 1);
 	delay(1000);
 	log_i("\n\n\n\nSalam Dunia dari %s\n\n\n\n", __FILE__);
 
+	binFile = __FILE__;
+	binFile = binFile.substring(3, binFile.length());
+	binFile = binFile.substring(0, binFile.length()-3);
+	binFile += "bin";
+
+	log_i("BinFile = %s", binFile.c_str());
+
 	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
 
-
-//	String xxx;
-//
-//	LocSpiff 	*locSpiff;
-//
-//	locSpiff = new LocSpiff;
-//
-//	String ttt = "salam dunia";
-//
-//	locSpiff->writeFile("/katun.sss", ttt.c_str());
-//
-//	locSpiff->listAllFiles();
-//	xxx = locSpiff->readFile("/ssid.txt");
-//	log_i("data dalam file = %s", xxx.c_str());
-//
-//	xxx = locSpiff->readFile("/katun.sss");
-//	log_i("data dalam file = %s", xxx.c_str());
-//
-//
-//	delete locSpiff;
-
-
-
-//	while(true){
-//		delay(2000);
-//	}
-
-
-
-	locOTA = new LocOTA(0, 30000, "Tekong.bin");
+	locOTA = new LocOTA(0, 30000, binFile);
 
 	setupSSID();
 
 	locWiFi = new LocWiFi(0,3000, &xValWiFi);
 	xValWiFi = lw_wifi_apsta;
-	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
-
-
 }
 
 //===============================================================================
@@ -102,4 +76,25 @@ inline void setupSSID() {
 }
 
 
+
+
+//	String xxx;
+//
+//	LocSpiff 	*locSpiff;
+//
+//	locSpiff = new LocSpiff;
+//
+//	String ttt = "salam dunia";
+//
+//	locSpiff->writeFile("/katun.sss", ttt.c_str());
+//
+//	locSpiff->listAllFiles();
+//	xxx = locSpiff->readFile("/ssid.txt");
+//	log_i("data dalam file = %s", xxx.c_str());
+//
+//	xxx = locSpiff->readFile("/katun.sss");
+//	log_i("data dalam file = %s", xxx.c_str());
+//
+//
+//	delete locSpiff;
 

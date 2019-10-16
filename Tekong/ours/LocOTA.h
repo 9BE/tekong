@@ -18,11 +18,12 @@
 class LocOTA {
 private:
 	int 	_loopDelay;
-	char	*_site;
+	String 	_site;
 	HTTPClient _http;
 	String _latestFileTimeStamp = "";
+	String _url;
 public:
-	LocOTA(int core, int loopDelay, char *site);
+	LocOTA(int core, int loopDelay, String site);
 	static void loop(void * parameter);
 };
 
