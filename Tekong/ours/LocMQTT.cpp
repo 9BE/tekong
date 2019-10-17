@@ -78,7 +78,7 @@ void reconnect()
 	while (!client.connected() && WiFi.isConnected()) {
 		yield();
 		delay(20);
-		log_i("sini ke?");
+//		log_i("sini ke?");
 		if (client.connect("ESP8266Client")) {
 			client.subscribe("esp32/output");
 			break;
@@ -86,7 +86,7 @@ void reconnect()
 			delay(5000);
 		}
 	}
-	log_i("done ke?");
+//	log_i("done ke?");
 }
 
 LocMQTT::~LocMQTT() {

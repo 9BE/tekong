@@ -103,8 +103,7 @@ void Sengat(String topic, String message) {
 inline void TickNyamuk() {
 
 	locMqtt->update();
-	if((millis()-tickNyamukTime) > 10000){
-		log_i("TickNyamuk------------------------------------------------------------------>");
+	if((millis()-tickNyamukTime) > 60000){
 		tickNyamukTime = millis();
 		tockBeat = !tockBeat;
 		Sengat("ayamhutan/beat", tockBeat?"1":"0");
