@@ -100,6 +100,7 @@ void Sengat(String topic, String message) {
 	}
 }
 
+//===============================================================================
 inline void TickNyamuk() {
 
 	locMqtt->update();

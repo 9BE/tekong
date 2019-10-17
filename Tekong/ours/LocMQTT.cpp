@@ -70,6 +70,9 @@ void callback(char* topic, byte* message, unsigned int length)
 		else if(messageTemp == "off"){
 			log_i("+++++++++++++++++++++++++++++++OFF");
 		}
+		else{
+			log_i("%s",messageTemp.c_str());
+		}
 	}
 }
 
