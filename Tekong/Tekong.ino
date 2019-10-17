@@ -3,11 +3,20 @@
 #include <LocWiFi.h>
 #include <LocOTA.h>
 #include <Update.h>
+#include <LocMQTT.h>
 
 FileInfo_t 	ssid;
 LocWiFi		*locWiFi;
 LocOTA		*locOTA;
+LocMQTT		*locMqtt;
 int xValWiFi = 0;
+
+// for MQTT
+time_t tickNyamukTime = 0;
+void TickNyamuk();
+bool tockBeat;
+bool mqttEnabled=true;
+
 
 void setupSSID();
 
@@ -27,11 +36,16 @@ void setup()
 
 	setupSSID();
 
-	locOTA = new LocOTA(0, 30000, binFile);
+	locOTA = new LocOTA(0, 120000, binFile);
 	delay(1000);
 
 	locWiFi = new LocWiFi(0,3000, &xValWiFi);
-	xValWiFi = lw_wifi_apsta;
+//	xValWiFi = lw_wifi_apsta;
+	xValWiFi = lw_wifi_sta;
+
+	delay(10000);
+
+	locMqtt = new LocMQTT;
 }
 
 //===============================================================================
@@ -42,12 +56,17 @@ void loop()
 
 
 	if(Update.isRunning()){
+		mqttEnabled = false;
 		Serial.print(Update.progress());
 		Serial.print(" @ ");
 		Serial.println(Update.size());
 
 	}
+	else{
+		mqttEnabled = true;
+	}
 
+	TickNyamuk();
 
 }
 
@@ -73,6 +92,25 @@ inline void setupSSID() {
 	delete locSpiff;
 }
 
+//===============================================================================
+void Sengat(String topic, String message) {
+	if(mqttEnabled){
+		locMqtt->hantar(topic, message);
+		log_i("---------------------------------> %s", message.c_str());
+	}
+}
 
+inline void TickNyamuk() {
+
+	locMqtt->update();
+	if((millis()-tickNyamukTime) > 10000){
+		log_i("TickNyamuk------------------------------------------------------------------>");
+		tickNyamukTime = millis();
+		tockBeat = !tockBeat;
+		Sengat("ayamhutan/beat", tockBeat?"1":"0");
+	}
+
+
+}
 
 
