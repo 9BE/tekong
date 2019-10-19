@@ -15,24 +15,13 @@
 LocOTA	*iniOTA;
 TaskHandle_t loopLocOTA= NULL;
 
-
-
 LocOTA::LocOTA(int core, int loopDelay, String site) {
 	//aza
 	iniOTA = this;
-
-
-	// loopDelay digunakan untuk check server
-	iniOTA->_loopDelay = loopDelay;
+	iniOTA->_loopDelay = loopDelay;	// loopDelay digunakan untuk check server
 	iniOTA->_site = site;
-
-//	Serial.println(iniOTA->_site);
-//	log_i("Apakah %s", iniOTA->_site.c_str());
-
 	xTaskCreatePinnedToCore(iniOTA->loop, "loopLocOTA", 3072, NULL, 1, &loopLocOTA, core);
-
 }
-
 
 void LocOTA::loop(void* parameter) {
 	//aza
@@ -63,10 +52,7 @@ void LocOTA::loop(void* parameter) {
 
 		if(scanEn){
 			if((WiFi.getMode() == WIFI_MODE_STA) || (WiFi.getMode() == WIFI_MODE_APSTA)){
-
-//				log_i("WiFi Mode = %d, site=%s", WiFi.getMode(), iniOTA->_site.c_str());
 				esp_task_wdt_reset();
-
 
 				iniOTA->_http.begin("http://nine-server.000webhostapp.com/nbe/masa.php?file=" + iniOTA->_site);
 				httpCode = iniOTA->_http.GET();

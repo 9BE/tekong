@@ -54,7 +54,6 @@ void loop()
 
 	delay(1000);
 
-
 	if(Update.isRunning()){
 		mqttEnabled = false;
 		Serial.print(Update.progress());
@@ -68,6 +67,26 @@ void loop()
 
 	TickNyamuk();
 
+}
+
+
+
+//===============================================================================
+void Sengat(String topic, String message) {
+	if(mqttEnabled){
+		locMqtt->hantar(topic, message);
+		log_i("---------------------------------> %s", message.c_str());
+	}
+}
+
+//===============================================================================
+inline void TickNyamuk() {
+	locMqtt->update();
+	if((millis()-tickNyamukTime) > 60000){
+		tickNyamukTime = millis();
+		tockBeat = !tockBeat;
+		Sengat("ayamhutan/beat", tockBeat?"1":"0");
+	}
 }
 
 //===============================================================================
@@ -91,26 +110,3 @@ inline void setupSSID() {
 	}
 	delete locSpiff;
 }
-
-//===============================================================================
-void Sengat(String topic, String message) {
-	if(mqttEnabled){
-		locMqtt->hantar(topic, message);
-		log_i("---------------------------------> %s", message.c_str());
-	}
-}
-
-//===============================================================================
-inline void TickNyamuk() {
-
-	locMqtt->update();
-	if((millis()-tickNyamukTime) > 60000){
-		tickNyamukTime = millis();
-		tockBeat = !tockBeat;
-		Sengat("ayamhutan/beat", tockBeat?"1":"0");
-	}
-
-
-}
-
-
