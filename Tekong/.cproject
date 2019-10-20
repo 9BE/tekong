@@ -33,6 +33,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Update/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/PubSubClient/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Time}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_GFX_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_ILI9341}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_ST7735_and_ST7789_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/SPI/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/ESP8266_and_ESP32_Oled_Driver_for_SSD1306_display/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.811364856" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -52,6 +57,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Update/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/PubSubClient/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Time}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_GFX_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_ILI9341}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_ST7735_and_ST7789_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/SPI/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/ESP8266_and_ESP32_Oled_Driver_for_SSD1306_display/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.1912746076" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -71,6 +81,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Update/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/PubSubClient/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Time}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_GFX_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_ILI9341}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/Adafruit_ST7735_and_ST7789_Library}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/SPI/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Tekong/libraries/ESP8266_and_ESP32_Oled_Driver_for_SSD1306_display/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.355368324" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -81,7 +96,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="libraries/Time/docs|libraries/Time/.git|libraries/FreeRTOS|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries/**/._*|libraries/?*/utility/*/*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="libraries/ESP8266_and_ESP32_Oled_Driver_for_SSD1306_display/resources|libraries/Adafruit_GFX_Library/Fonts|libraries/Adafruit_GFX_Library/fontconvert|libraries/Time/docs|libraries/Time/.git|libraries/FreeRTOS|libraries/?*/**/?xamples/**|libraries/?*/**/?xtras/**|libraries/?*/**/test*/**|libraries/?*/**/third-party/**|libraries/**/._*|libraries/?*/utility/*/*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

@@ -42,9 +42,29 @@
 			<location>/home/annuar/Arduino/hardware/espressif/esp32/variants/esp32</location>
 		</link>
 		<link>
+			<name>libraries/Adafruit_GFX_Library</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/Adafruit_GFX_Library/1.4.1</locationURI>
+		</link>
+		<link>
+			<name>libraries/Adafruit_ILI9341</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/Adafruit_ILI9341/1.2.0</locationURI>
+		</link>
+		<link>
+			<name>libraries/Adafruit_ST7735_and_ST7789_Library</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/Adafruit_ST7735_and_ST7789_Library/1.2.7</locationURI>
+		</link>
+		<link>
 			<name>libraries/ESP32httpUpdate</name>
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/ESP32httpUpdate/2.1.145</locationURI>
+		</link>
+		<link>
+			<name>libraries/ESP8266_and_ESP32_Oled_Driver_for_SSD1306_display</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/ESP8266_and_ESP32_Oled_Driver_for_SSD1306_display</location>
 		</link>
 		<link>
 			<name>libraries/ESPmDNS</name>
@@ -70,6 +90,11 @@
 			<name>libraries/PubSubClient</name>
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/PubSubClient/2.7.0</locationURI>
+		</link>
+		<link>
+			<name>libraries/SPI</name>
+			<type>2</type>
+			<location>/home/annuar/Arduino/hardware/espressif/esp32/libraries/SPI</location>
 		</link>
 		<link>
 			<name>libraries/SPIFFS</name>
