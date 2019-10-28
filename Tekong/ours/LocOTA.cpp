@@ -34,12 +34,15 @@ void LocOTA::loop(void* parameter) {
 
 	locSpiff = new LocSpiff("LocOTA::loop");
 
-	while(true){
-		iniOTA->_latestFileTimeStamp = locSpiff->readFile("/timestamp.txt");
-		if(iniOTA->_latestFileTimeStamp.length() > 5){
-			break;
-		}
+	iniOTA->_latestFileTimeStamp = locSpiff->readFile("/timestamp.txt");
+
+	if(iniOTA->_latestFileTimeStamp.length() < 5){
+		iniOTA->_latestFileTimeStamp = "NO TIME STAMP";
+		locSpiff->writeFile("/timestamp.txt", iniOTA->_latestFileTimeStamp.c_str());
 	}
+
+
+	log_i("SINI");
 
 	delete locSpiff;
 

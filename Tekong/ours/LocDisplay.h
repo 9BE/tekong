@@ -12,17 +12,17 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
 #include "Adafruit_ILI9341.h"
-
-
-
 #include "SSD1306Spi.h"
 #include "OLEDDisplayUi.h"
 #include <SPI.h>
 
 class LocDisplay {
+private:
+	int 	_loopDelay;
 public:
-	LocDisplay();
+	LocDisplay(int core, int loopDelay);
 	virtual ~LocDisplay();
+	static void loop(void * param);
 };
 
 #endif /* OURS_LOCDISPLAY_H_ */

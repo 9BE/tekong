@@ -4,11 +4,13 @@
 #include <LocOTA.h>
 #include <Update.h>
 #include <LocMQTT.h>
+#include <LocDisplay.h>
 
 FileInfo_t 	ssid;
 LocWiFi		*locWiFi;
 LocOTA		*locOTA;
 LocMQTT		*locMqtt;
+LocDisplay	*locDisplay;
 int xValWiFi = 0;
 
 // for MQTT
@@ -17,24 +19,33 @@ void TickNyamuk();
 bool tockBeat;
 bool mqttEnabled=true;
 
+#define pinBuzzer 5
 
-void setupSSID();
+
+void setupSPIFFiles();
 
 //===============================================================================
 void setup()
 {
 	String binFile;
+
+	pinMode(pinBuzzer, OUTPUT);
+	digitalWrite(pinBuzzer, LOW);
+
 	Serial.begin(912600, SERIAL_8N1, 3, 1);
 	delay(1000);
 	log_i("\n\n\n\nSalam Dunia dari %s\n\n\n\n", __FILE__);
 	log_i("Memory = %d", String(esp_get_free_heap_size()).c_str());
+
+
+
 
 	binFile = __FILE__;
 	binFile = binFile.substring(3, binFile.length());
 	binFile = binFile.substring(0, binFile.length()-3);
 	binFile += "bin";
 
-	setupSSID();
+	setupSPIFFiles();
 
 	locOTA = new LocOTA(0, 120000, binFile);
 	delay(1000);
@@ -43,9 +54,12 @@ void setup()
 //	xValWiFi = lw_wifi_apsta;
 	xValWiFi = lw_wifi_sta;
 
-	delay(10000);
+	delay(1000);
 
 	locMqtt = new LocMQTT;
+	locDisplay = new LocDisplay(1, 1000);
+
+
 }
 
 //===============================================================================
@@ -90,14 +104,33 @@ inline void TickNyamuk() {
 }
 
 //-------------------------------------------------------------------------------
-inline void setupSSID() {
+inline void setupSPIFFiles() {
 	//aza
 	LocSpiff 	*locSpiff;
+	FileInfo_t	info;
 
-	locSpiff = new LocSpiff("setupSSID");
+	locSpiff = new LocSpiff("setupSPIFFiles");
 
+	locSpiff->listAllFiles();
+
+//	locSpiff->format(); 	// ! ! ! ! ! ! ! ! ! Danger ! ! ! ! ! ! ! ! ! !
+
+	//Setup latestVersion time stamp--------------------------------------------
+//	"/timestamp.txt"
+	info = locSpiff->getInfo("/timestamp.txt");
+	if(info.filename == "/timestamp.txt"){
+		log_i("info /timestamp.txt = EXIST");
+	}
+	else{
+
+
+
+	}
+
+	//Setup SSID----------------------------------------------------------------
 	ssid = locSpiff->getInfo("/ssid.txt");
 	if(ssid.filename == "/ssid.txt"){
+		log_i("info /ssid.txt = EXIST");
 		log_i("Exist");
 	}
 	else{
@@ -108,5 +141,8 @@ inline void setupSSID() {
 		locSpiff->appendFile("/ssid.txt", "sta,GF_Wifi_2.4GHz,Gr33nF1nd3r2018\n");
 		locSpiff->appendFile("/ssid.txt", "ap,NiNe,AsamBoiqqq\n");
 	}
+
+
+
 	delete locSpiff;
 }

@@ -188,7 +188,17 @@ String LocSpiff::readFile(const char* path) {
         File file = SPIFFS.open(path, FILE_READ);
         if(!file || file.isDirectory()){
             log_e("- failed to open file for reading");
-            file.close();
+            res = "NAN";
+
+//            file = SPIFFS.open(path, FILE_WRITE);
+//            if(file.print("")){
+//            	log_i("- file written");
+//            	res = true;
+//            } else {
+//            	log_e("- write failed");
+//            }
+
+//            file.close();
             SPIFFS.end();
             return res;
         }
@@ -251,6 +261,10 @@ void LocSpiff::listDir(const char* dirname, uint8_t levels) {
 
 FileInfo_t LocSpiff::getInfo(const char* path) {
 	FileInfo_t res;
+
+	res.filename = "";
+	res.lastWrite = 0;
+	res.size = -1;
 
     if(SPIFFS.begin(true)){
 
